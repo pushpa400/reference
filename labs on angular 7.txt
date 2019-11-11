@@ -1,0 +1,437 @@
+let a:number;
+let b:string;
+
+a=12.45678;
+b='india';
+console.log(a);
+console.log(a.toFixed(2));
+console.log(a.toPrecision(2));
+
+console.log(b.toUpperCase());
+console.log(b.indexOf("i"));
+console.log(b.length);
+
+a='country';
+===============   function with ts
+
+
+function add(a:number , b:number){
+    return a+b;
+}
+
+let x = function(x,y){return x+y;}
+
+let y= add(12,23);
+
+console.log(x(12,23));
+
+console.log(y);
+
+===========================
+//arrow function
+let z = (x:number,y:number) => x+y;
+console.log(z(5,10));
+
+======================  //typescript as object
+let employee:{
+        id:number
+        name:string
+    };
+employee={
+        id:100,
+        name:"Tom"
+    }
+console.log(employee);
+
+----------output :    { id: 100, name: 'Tom' }
+
+=========================== // typescript as class & making object
+class Employee {
+    eCode:number;
+    eName:string;
+    eSal:number;
+    constructor(code:number,name:string, eSal:number){
+        this.eCode=code;
+        this.eName=name;
+        this.eSal=eSal;
+    }
+    getSalary():number {
+        return this.eSal;
+    }
+}
+
+let emp=new Employee(1,'abc',23456.78);
+console.log(emp.eCode+"-"+emp.eName);
+console.log(emp.getSalary());
+
+=======================
+
+
+
+<h1>Hello World</h1>
+<br>
+Welcome to our {{title}}
+
+
+-------------- Add a new component ---------------
+
+
+ng generate component nav
+or
+ng g c nav
+
+
+ng g c home
+ng g c about
+ng g c contact
+
+-----------------  event binding -------
+
+In HTML :
+
+<hr>
+<button (click)="click1()">Click me</button>
+
+
+In Ts:
+
+click1(){
+      alert('Hi!!!!!!');
+ }
+
+----------------------  2 way binding ------------
+
+under home's html:
+
+Enter name: <input [(ngModel)]="username">
+
+<p>Hello {{username}}!</p>
+
+under home's ts:
+
+username :string;
+
+constructor() {  this.username='Dibakar'; }
+
+To use form controls , add this line under app.module.ts as :
+
+import { FormsModule } from '@angular/forms'; // add form module
+
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+  ],
+-------   How can I do route ?
+
+
+
+
+
+
+
+
+---------  Do design a service :
+
+To create a service :
+
+syn:  ng generate service <servicename>
+
+ng generate service data
+
+it will generate 2 files under root :
+  data.service.ts  & data.service.spec.ts
+
+open the service's ts file :
+
+design a method:
+
+clicks() {  return  console.log('clicked  now');   }
+
+
+
+In which component, we need to use this service , there it needs to import:
+
+To use this in a component, visit /src/app/home/home.component.ts and update the code to the following:
+
+import { DataService } from '../data.service';
+
+
+===============================================================
+
+
+ng-directive
+-------------------
+Use contact component :  html  / css / ts
+
+serverID: number = 10;  
+serverName = 'TestServer'; 
+serverStatus: string = 'Offline';  
+serverCreated = false;  
+
+<p>contact works!</p>
+<hr>
+Server : {{serverID}} with Name : {{serverName}}
+Status of Server : {{serverStatus}}
+
+<p *ngIf="serverCreated"> Server is ready now</p>     
+
+<p *ngIf="serverCreated; else noServer"> Server is created. Server name is {{serverName}}</p> 
+    
+<ng-template #noServer>  
+       <p>No Server is created.</p>  
+</ng-template> 
+
+
+--- ng-style----ng-style binding for Angular 7 
+
+
+add a method in ts:
+
+ getColor() {  
+    	    return this.serverStatus === 'Online' ? 'green' : 'red';  
+    	  }  
+
+ constructor() { 
+  this.serverCreated = Math.random()>0.5? true:false;
+
+}
+
+<hr>
+<p [ngStyle]="{backgroundColor: getColor()}">  
+Server  with ID {{serverID}} is {{serverStatus}}. 
+</p>  
+
+---- ng-for   :  for iterative process:
+
+==================================
+under ts , define object:
+
+students= [
+  {name:'Prabhjot',country:'US'},
+  {name:'Nidhi',country:'Sweden'},
+  {name:'Kapil',country:'India'}
+];
+
+now check in html code as:
+<table>
+    <tr>
+        <th>Name of student</th>
+        <th>Address of student</th>
+    </tr>
+        <tr *ngFor="let student of students">
+           <td>{{student.name}}</td>
+           <td>{{student.country}}</td>  
+        </tr>
+</table>
+-------------------- Access web service ---- http or https
+https://reqres.in/api/users
+
+
+
+Use of HTTP Client - module
+
+visit the /src/app/app.module.ts file and make a couple changes. 
+
+Add the following to the imports section at the top:
+// Other imports
+
+import { HttpClientModule } from '@angular/common/http';
+
+Next, add it to the imports array:
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,    
+  ]
+
+
+service's ts open it :
+
+import { HttpClient } from '@angular/common/http';  // Import it up here
+
+
+export class DataService {
+  //DI
+  constructor(private http: HttpClient) { }
+
+  getUsers() { return this.http.get('https://reqres.in/api/users');  }
+}
+
+** we need to get this service under about- component 
+
+1. import service under about's ts
+import { DataService } from '../data.service';
+
+2. DI this service instance under ts
+constructor(private dataService: DataService) {  }
+
+3. add an attribute in ts : 
+     users : object
+
+4. invokes getUsers() from service under its init() method:
+
+ ngOnInit() {
+     this.dataService.getUsers().subscribe(data => {
+         this.users = data;
+        // console.log(this.users);
+       }
+    );
+  }
+
+now work on html template:
+<h1>Users</h1>
+
+<ul *ngIf="users">
+  <li *ngFor="let user of users.data">
+    <img [src]="user.avatar">
+    <p>{{ user.first_name }} {{ user.last_name }}</p>
+  </li>
+</ul>
+
+<hr>
+
+
+
+--- angular with filter 
+
+add within your component's ts as :
+
+name: string = 'RamSiya';
+birthday: Date = new Date(1987, 6, 18);
+salary = 234567.89;
+
+now need to show in html component:
+
+<p>filtering works!</p>
+<h1>{{name|uppercase}}</h1>
+<h1>{{name|lowercase}}</h1>
+<p>Birthday is {{  birthday | date:'fullDate' | uppercase}} </p> 
+<p>Salary: {{salary | currency}} </p>
+
+<hr>
+----------------------------
+Design of angular form : Use contact form :
+
+Reactive Forms
+
+add depdency module in app.module.ts as:
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // add form module
+
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+
+we use to design form , contact- component
+==========================
+now first talk with its ts:
+
+import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+
+
+
+update in my ts 
+=================
+add property:
+angForm: FormGroup;
+
+DI in constructor as well as design createForm():
+constructor(private fb: FormBuilder) { 
+      this.createForm();
+}
+createForm() {
+  this.angForm = this.fb.group({
+     name: ['', Validators.required ],
+     address: ['', Validators.required ]
+  });
+}
+
+add a new method for submit event:
+
+submitCompany(form){
+  console.log(form);
+  console.log(this.name+" "+this.address);
+  alert("The form was submitted");
+}
+
+
+Now make controls in html form :
+
+  <form [formGroup]="angForm" novalidate (ngSubmit)="submitCompany(angForm);">
+        <div class="form-group">
+            <label>Name:</label>
+            <input class="form-control" formControlName="name" type="text" [(ngModel)]="name">
+        </div>
+        <div *ngIf="angForm.controls['name'].invalid" >
+            <div *ngIf="angForm.controls['name'].errors.required">
+              Name is required.
+            </div>
+        </div>
+         <div class="form-group">
+            <label>Address:</label>
+            <input class="form-control" formControlName="address" type="text" [(ngModel)]="address">
+        </div>
+        <div *ngIf="angForm.controls['address'].invalid" >
+            <div *ngIf="angForm.controls['address'].errors.required">
+              email is required.
+            </div>
+        </div>
+        <button type="submit" [disabled]="angForm.invalid">
+            Save
+        </button>
+  </form>
+  <br />
+  <p>Form value: {{ angForm.value | json }}</p>
+  <p>Form status: {{ angForm.status | json }}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+<hr>
+<h1>
+    Welcome to {{title}}!!
+  </h1>
+  <form [formGroup]="angForm" novalidate (ngSubmit)="submitCompany(angForm);">
+        <div class="form-group">
+            <label>Name:</label>
+            <input class="form-control" formControlName="name" type="text" [(ngModel)]="name">
+        </div>
+        <div *ngIf="angForm.controls['name'].invalid" >
+            <div *ngIf="angForm.controls['name'].errors.required">
+              Name is required.
+            </div>
+        </div>
+         <div class="form-group">
+            <label>Address:</label>
+            <input class="form-control" formControlName="address" type="text" [(ngModel)]="address">
+        </div>
+        <div *ngIf="angForm.controls['address'].invalid" >
+            <div *ngIf="angForm.controls['address'].errors.required">
+              email is required.
+            </div>
+        </div>
+        <button type="submit" [disabled]="angForm.invalid">
+            Save
+        </button>
+  </form>
+  <br />
+  <p>Form value: {{ angForm.value | json }}</p>
+  <p>Form status: {{ angForm.status | json }}</p>
+
+
+
+
+ method in my ts 
+=================
+
+submitCompany(form){
+  console.log(form);
+  console.log(this.name+" "+this.address);
+  alert("The form was submitted");
+  //form.reset();
+}
+
+

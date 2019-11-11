@@ -1,0 +1,182 @@
+LOOSE COUPLE- TYPE OF VARIABLE IS VAR
+STRONG COUPLE-MENTION THE TYPE
+
+ANGUKAR-TYPE SCRIPT-DEFINE THE TYPE OF VARIBALE
+
+D/F BTW ANGULAR AND ANGULAR JS
+ANGULAR JS				ANGULAR
+BASED ON MVC ARCHITECTURE		BASED ON SERVICE/CONTROLLER
+USES JS					INTODUCED TYPESCRIPT
+BASED ON CONTROLLERS CONCEPT		UI APPROACH
+NOT A MOBILE FRIENDLY FRAMEWORK		DEVELOPED CONSIDERING MOBILE PLATFORM
+
+server is nodeJS for angular to dev appln-contains package and module library
+npm-node package manager
+
+npm install -g typescript	//to add package
+
+TYPESCRIPT
+it is superset of JS
+1)STRONG TYPING-specific data type only
+2)WEAK TYPING-any type is acceptable
+
+JS and TYPESCRIPT(concept) is fully object oriented
+
+=============
+to run the code in cmd:
+create a notepad file as "filename.ts"
+"tsc filename.ts" -- compiles and generates 2 files , on with.js and other with .ts
+v should run .js file so use node to run
+"node filename.js"
+======================
+typescript variale
+DATA TYPe:ANY(DEFAULT)
+let myVar;  //variable declared with let keyword
+myVar=1
+myVar=true;
+myVar='mob';
+-------------
+let a:number a.toFixed()/(2), a.toPrecision, a.toString(), a.valueOf()[returns primitive data type],
+ a.exponential() 
+let b:string  b.charAt(), b.concat(), b.charCodeAt(),b.includes(),b.indexOf(),b.lastIndexOf()
+let c:boolean toString() and valueOf()
+let d:any; any method supported
+let e:number[]=[1,2,3];
+let f:string[]=['a','b'];
+let g:any[]=[true,1,'a'];
+--------------
+TS variable scope
+variable exist only witin the loops life cycle, but in JS var accepted even out of the loop/block
+-------------------
+anonymous function
+let myAdd=function(a,y){return x+y;};
+-----------
+arrow function
+var z=(x,y)=>x+y;
+---------------------
+TS as object
+let employee:
+{
+id:number
+name:string;
+};
+employee={
+    id:100,name:'Tom'
+}
+============
+TS as class and making object
+------
+TS types
+static
+dynamic
+================================================================================
+ANGULAR cli(command line interface)
+npm install @angular/cli@latest (gets the interface)
+--------------------------------
+command
+create new project/appln--- ng new (demoapp1)
+run the project/appln--- ng serve/
+ng generate class
+ng generate directive
+ng generate module
+ng generate service
+--------------
+component
+app(default) components-5
+------------
+app component.css
+app component.html
+app component.ts
+
+//2 for testing env
+app component.spec.ts
+//ts for al kinds of module (external modules)(like imports),node js provides the module/package
+app module.ts
+-----------
+package.json--npm install,no need to carry libraries physically,just call by cmd where ever needed so installs all 
+library
+----------------------------------
+angular architecture
+--------------------
+template-html design,should maintain directice(metadata)
+component-holds data status,values,binds with template
+DATA BINDING-2 way binding(full-duplex)
+one-way and two-way data binding(need ng model)
+1.property binding-component-template binding,,TS is providig proprty's value,wic is binded to html
+2.event binding-template-component binding,html button , on event of button acction is reflected
+
+INJECTOR-service integration
+modules-blocks like components
+--------------------
+COMPONENT
+create a component
+ng generate component component-name
+-----------------
+add a new component
+ng generate component component-name or ng g c nav
+adds on to module.ts under src/app,imports
+--------------
+template
+to define the desgin of the component we can use
+1)template-url //mention the url here of the html page,is perfect(external)
+2)template-write the design code here only,html defn here only(inline)
+--NOTE: component-design/look,service-background process
+=-----------------=
+INTERPOLATION
+converts into property binding
+---------------------------------------------------event binding
+needs function,control
+--------------------
+two way binding
+
+
+
+
+---------------------------------------
+ROUTE??
+nav component
+app consists of routingmodule.ts
+app-routingmodule.ts file in src
+const routes: Routes = [
+  { path: '',component:HomeComponent },//routing component,when ntn is given home component is opened
+  { path: 'about',component:AboutComponent },//when about is given about component is opened
+  { path: 'contact',component:ContactComponent },
+];
+-------------------------------
+===========================================
+do design a service--it is global
+
+ng generate service data
+
+it ll generate 2 service--
+data.service.ts
+data.service.spec.ts
+
+open the service's ts file:
+design a method:
+clicks(){return console.log('clicked now');}
+
+in wic component we need to use this service,there it needs to import
+
+
+"dependency injection"--when obj is craeted wt eva needed is loaded into that page,obj is injected no need to 
+create obj manually
+
+-------------------------------------------------------------------------
+ng directive
+-------------
+ngif-inserts or removes element based on true/false condition
+ngStyle
+ngtemplate
+ng-for:for iterative process
+ngFilter
+-------------
+web access service---http https
+----------
+https://reqres.in/api/users-on web browser
+--------
+"import in app.module.ts"
+import {HttpClientModule} from '@angular/common/http'
+{HttpClientModule} 
+
+import this in service also

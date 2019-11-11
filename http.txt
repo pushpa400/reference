@@ -1,0 +1,47 @@
+ ngOnInit() {
+     this.dataService.getUsers().subscribe(data => {
+         this.users = data;
+        // console.log(this.users);
+       }
+    );
+  }
+
+now work on html template:
+<h1>Users</h1>
+
+<ul *ngIf="users">
+  <li *ngFor="let user of users.data">
+    <img [src]="user.avatar">
+    <p>{{ user.first_name }} {{ user.last_name }}</p>
+  </li>
+</ul>
+
+<hr>
+
+===================CSS 
+
+
+ul {
+    list-style-type: none;
+    margin: 0;padding: 0;
+
+    li {
+        background: rgb(238, 238, 238);
+        padding: 2em;
+        border-radius: 4px;
+        margin-bottom: 7px;
+        display: grid;
+        grid-template-columns: 60px auto;
+
+        p {
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 100%;
+        }
+    }
+}
+

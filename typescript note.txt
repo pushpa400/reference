@@ -1,0 +1,271 @@
+
+TypeScript is a superset of JavaScript.
+That means that TypeScript extends JavaScript with extra functionality which is not present in the current version of JavaScript supported by most browsers. 
+
+In a weakly typed language, the type of a value depends on how it is used. 
+In a strongly typed language, a variable has a type and that type cannot change. 
+
+
+-------------Lab---------------
+
+Install typescript compiler:
+npm install -g typescript
+tsc -version
+
+
+Open a terminal and create a file main.ts:
+console.log("Hello TS World");
+
+Now run following command:
+tsc main.ts
+
+You should see 2 files:
+
+Our TypeScript code (main.ts) was compiled to JavaScript (main.js).
+
+Let's run our js code using node:
+node main.js
+
+-------------------- with VS Code
+
+Open our recent project /my-app (if you missed that check previous tutorial where we set up our project).
+Replace the content of /src/app/app.component.ts file with the following:
+import { Component } from '@angular/core';
+
+  @Component({
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css']
+
+  })
+
+  export class AppComponent {
+
+    constructor(){
+      this.onStartup();
+    }
+
+  onStartup(){
+    console.log('Hello TS World');
+  }
+  }
+
+Save the file, then run ng serve -o. 
+
+------------------------ Typescript variable types
+Type: any
+
+let myVar;
+myVar = 1;      //number
+myVar = true;   //boolean
+myVar = 'mdb';  //string
+
+TypeScript compiler doesn't complain. 
+
+TypeScript allows you to use a special type any. It allows you to use dynamic typing but importantly — it requires you to use it consciously.
+
+Other types: 
+Four different types of variables (number, string, boolean and any).
+let a: number;                    //numeric type
+let b: string;                    //string
+let c: boolean;                   //true or false
+let d: any;                       //any (dynamic)
+let e: number[] = [1,2,3];        //array of numbers
+let f: string[] = ['a','b','c'];  //array of strings
+let g: any[] = [true, 1, 'a'];    //array of any
+
+------------Typescript variable scope
+  function count(){
+    for (var i = 0; i < 9; i++){
+      console.log(i);
+    }
+
+    console.log('Counted: ' , i);
+  }
+
+  count();
+
+
+output:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+Counted:  9
+
+Note that although our i variable was declared inside a for loop, it is accessible to the console.log() function which is outside of our code block. Why?
+
+This is because we have declared our variable as var. In JavaScript, all variables declared like that have scope to the nearest function, which in our case is count().
+
+
+now change 'var' to 'let' and compile .ts file , get error as :
+error TS2304: Cannot find name 'i'.
+console.log('Counted: ' , i);
+
+
+-----Default methods for variables in typescript
+
+TypeScript allows us to use static typing and use different type of variables. Each variable defines a certain set of functions which can be used along with them. For instance:
+
+let a: number;                    //numeric type
+
+Numeric type methods:
+1	a = 5.56789;	Basic assignment	5.56789
+2	a.toExponential()	Convert a number into an exponential notation:	5.56789e+0
+3a	a.toFixed()	Converts a number to a string keeping a specified number of decimals.	6
+3b	a.toFixed(2)	5.57
+4	a.toPrecision(2)	Returns a string representing the Number object to a specified precision.
+While toFixed(n) provides n length after the decimal point; toPrecision(x) provides x total length.	5.6
+5	a.toString()	Returns a string representing the Number object.	5.56789
+6	a.valueOf()	The valueOf() method returns the wrapped primitive value of a Number object.	5.56789
+
+
+let b: string;                    //string
+
+1	b = 'Hello MDB World';	Basic assignment	Hello MDB World
+2	b.charAt(6)	The String object's charAt() method returns a new string consisting of the single UTF-16 code unit located at the specified offset into the string.	M
+3a	b.charCodeAt(6)	The charCodeAt() method returns an integer between 0 and 65535 representing the UTF-16 code unit at the given index.	77
+3b	b.concat('. It is nice to meet you.');	The concat() method combines the text of one or more strings and returns a new string.	Hello MDB Wolrd. It is nice to meet you.
+4	b.endsWith('d')	The endsWith() method determines whether a string ends with the characters of a specified string, returning true or false as appropriate.	true
+5.1	b.includes('B');	The includes() method determines whether one string may be found within another string, returning true or false as appropriate.	true
+5.2	b.includes('b');	false
+6	a.indexOf('M')	The indexOf() method returns the index within the calling String object of the first occurrence of the specified value, starting the search at fromIndex. Returns -1 if the value is not found.	6
+7	a.lastIndexOf('l')	The lastIndexOf() method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from fromIndex. Returns -1 if the value is not found.	12
+
+
+Any and boolean
+The any type doesn't offer any predefined methods. Boolean offers two basic methods — toString which returns a string of either 'true' or 'false, as well as valueOf which returns the primitive value of the Boolean object.
+
+-----------------Typescript anonymous functions
+in JavaScript you can define functions.
+
+// Named function
+function add(x, y) {
+    return x + y;
+}
+
+// Call named function
+console.log(add(5,10));
+
+This is called Named functions.
+
+You can also use Anonymous functions. An anonymous function is a function that was declared without any named identifier to refer to it. As such, an anonymous function is usually not accessible after its initial creation.
+One common use for Anonymous functions is as arguments to other functions. 
+
+// Anonymous function
+let myAdd = function(x, y) { return x + y; };
+
+// You can call it like this
+console.log(myAdd(5,10));
+
+// But definitely more common
+console.log ((function(x , y) {
+  return x + y;
+})(5,10));
+
+
+another :
+setTimeout(function() {
+  alert('hello');
+}, 1000);
+
+
+-------Typescript arrow functions
+
+You can write the same using arrow functions (sometimes also called fat arrow functions):
+
+var add = (x,y) => x+y;
+console.log(add(5,10));
+
+Arrow functions are always anonymous and turn: (parameters) { expression }
+
+// Example:
+function add(x, y) {
+    return x + y;
+}
+
+written into this format:
+
+(parameters) => {expression}
+
+// Example:
+(x,y) => {x+y};
+
+
+--------Typescript as object
+
+let employee:{
+    id:number
+    name:string
+};
+
+employee={
+    id:100,
+    name:"Tom"
+}
+
+console.log(employee);
+
+-----Typescript as class
+
+//as class
+class Employee
+{
+    eCode:number;
+    eName:string;
+    eSal:number;
+
+    constructor(code:number,name:string, eSal:number)
+    {
+        this.eCode=code;
+        this.eName=name;
+        this.eSal=eSal;
+    }
+
+  getSalary():number{
+        return this.eSal;
+    }
+}
+
+let emp=new Employee(1,'abc',23456.78);
+console.log(emp.eCode+"-"+emp.eName);
+console.log(emp.getSalary());
+
+-------------------------- TypeScript as inheritence
+
+// Inheritence
+class Person {
+ name:string;
+ constructor(name:string)
+ {
+     this.name=name;
+     console.log("Name: "+name);
+ }
+
+}
+
+
+class Student extends Person {
+    sid:number;
+  
+    constructor(code:number,name:string) {
+        super(name);
+        this.sid=code;
+    }
+
+  getTotal():number{
+        return 789;
+    }
+}
+
+
+let s=new Student(1,'Ram');
+
+console.log(s.sid+"-"+s.name);
+console.log(s.getTotal());
+
