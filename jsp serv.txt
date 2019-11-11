@@ -1,0 +1,116 @@
+web deevlopment-static and dynamic
+
+JNDS-java naming and directory service
+web server-handle only web module i,.e http based communication i.e. req responsr-eg:tomcat
+appl server-supports al enterprise service-eg:jboss,glasswish
+
+EJB(enterprise java base) and seerv jap-appl 
+ejb-web
+
+JMS-java messaging seervice---one-one(subscriber) and broadcasting
+
+java EE and java SE
+
+JNT-java naming service--look up
+
+java mailing service
+
+RMI tech-obj present in other network,same or cross platform
+
+JTA java transaction API
+
+Servlet(class) and JSP--on server side--data is taken as text/html format,,image audio in binary format
+servlet-pure java class,program,write html code witin,prg complied to .class and run on server,execption can be checked
+JSP-simple page like html,where java code can be included,no need to complie,at run tim,JSP code converted to servlet code when client req,and den serv complied i.e bytecode and excuted--
+done by jsp engine(translate jsp code to servlect code i.e. java)
+
+CGI
+common gateway interface
+various d/f connections established for evrey requ,so resource is required too much
+
+servlet architecture--multi threading came to picture,saves resource,throughput,efficient,login page
+inly single instance i.e one object but muktiple threads is used to handle each req
+
+synchronous mode-servl jsp--phone cal
+asynchonous mode-ajax--respo not coming back,then req is blocked,cant do anything on the page until response is received
+sms message
+
+SERVLET API
+javax.servlet --provides clas and interface and maintains own "life cycle mechanism"(server makes obj handles method by obj and executes
+javax.servlet.http-sub package-handle all kinds of http protocol 
+
+servlet-innterface--init() service() destroy()-abstract method--servlet life cycle
+generic servlet class-extended to form generic servlect,gerneralised servlet,maintain any kind of protocol,noy protocol speciific
+http servlet--to maintain only http protocol use http servlet
+my sevlet
+
+javax.servlet package contains: 
+ServletRequest Interface 
+ServletResponse Interface
+ ServletContext Interface
+javax.servlet.http package contains:
+ HttpServletRequest Interface 
+ HttpServletResponse Interface 
+HttpSession Interface
+
+servlet life cycle
+init()
+service() --doget dopost doput do delete
+destoy()
+
+deployment descriptor--- web.xml--mapping is written in this-- session tim out,whic page is loaded first,
+configuration file is stored here
+
+<servlet> servlet name-url map is mapped to name and servlet class-name is mapped to the class
+<servlet-mapping>
+
+servlet exception--servlet life cycle ,mechanism issue
+IOException-issue in network realted issue,data to be sent or received,both are checked exception
+
+!--action name is servelet name--!
+
+---------------------------------
+page transfer on server side
+1)RequestDispatcher:Interface, called by request obj,no change in address bar  when there is change from one page to another,servlet req obj is needed to cal request
+there are 2 methods 
+forward--from current page to another new page
+include--from curremt page to new page, and new page loaded into the same page
+more wealthy
+old req is never removed along with new req obj
+
+RequestDispatcher rd=request.getRequestDispatcher("page url");
+rd.forward(request,response);
+or
+rd.include(request,response);
+
+2)sendRedirect()--- method, valled by response object
+response.sendRedirect("page url");-------------
+
+--address bar changes when there is change from one page to another,servlet res obj is needed to cal response
+can only do forward
+-----------------------------------------------------------------------
+servlet life cycle
+public void init(ServletConfig config)---invoked by web container only once,config for particular servlet
+public void service(ServletRequest request,ServletResponse response)---invoked at each req by web container 
+public void destroy()0--invoked only once and indicates that servlet is destroyed
+
+================================================
+servlet config
+it is specific for each servlet. each holds configuration information for a particular servlet and it should be injected at time of initialization using
+method:  init()
+
+this initialization is taken care of servlet container manager
+
+ServletConfig can access any paramater from web.xml
+
+http container--each project--eg:pool
+http session data(browser)--local maintanance eg:ppl in pool
+servlet context---global maintaince,any changes should be affected to al servlet page,common to all ser page
+getAttributr()
+setAttribute()
+
+servlet context is representing the servlet container where all servlets are running, It should be same and global for all kinds of servlet in the same project.
+If v want to store some value in this context,it can be accessible by any servlet of the same project where value should be maintained by key-value pair.
+
+To get servlectcontect reference dynamically, use the method getServletContext(). To set any value in context use method setAttribute(Attributename,attributevalue).
+To reteive value from context use method getAttribute(Atrributename) which returns java.lang.obj, so downcasting is required.

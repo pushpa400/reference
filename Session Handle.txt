@@ -1,0 +1,201 @@
+
+session tracking using HttpSession :
+---------------
+A session is a conversation between the server and a client. 
+A conversation consists series of continuous request and response. 
+
+
+Why should a session be maintained?
+----------------
+When there is a series of continuous request and response from a same client to a server, the server cannot identify from which client it is getting requests. Because HTTP is a stateless protocol. To maintain the conversational state, session tracking is needed.
+
+HttpSession interface
+------------------
+Container creates a session id for each user.
+The container uses this id to identify the particular user.
+An object of HttpSession can be used to perform two tasks:
+a. bind objects
+b. view and manipulate information about a session, such as the session identifier, creation time, and last accessed time.
+
+
+
+
+
+1. get session reference :
+	HttpSession session = request.getSession();
+or
+	HttpSession session = request.getSesion(true);
+or
+	HttpSession session = request.getSession(false);
+
+1st twos are same: get always a session reference, if present return it , if not present, it will newly created and send it.
+
+3rd case: returns session reference if present otherwise returns null.
+
+2. check session is old or new :
+	session.isNew()  --- return true if session is new otherwise false
+
+3. to store some value in session for future use in different pages:
+  	session.setAttribute("attributename" , value);
+*** in session , all data are stored in form of jav.lang.Object
+
+4. to read or get data from session which you already stored as its attribute:
+    (typecast)session.getAttribute("attributename");
+
+5. if you feel , remove data from existing session :
+    session.removeAttribute("attributename");
+
+6. to destroy/delete/kill your session, like logout period:
+   session.invalidate();
+
+7.  to set interactive interval when session automatically lost when time expires:
+    session.setMaxInteractiveInterval(int);    
+** unit in seconds
+
+
+-----------------------------
+Cookie handle
+===============
+create cookie with name-value and store in response:
+
+Cookie c = new Cookie("color", color);
+response.addCookie(c);
+
+read cookies from response on server side:
+
+Cookie c[] = request.getCookies();
+for(Cookie y:c)
+   System.out.println(y.getName()+" "+y.getValue());
+
+
+
+
+
+
+if (pwd.equals("12345")) {
+HttpSession session = request.getSession(); 
+session.setAttribute("userid", uid);
+			
+RequestDispatcher rd = request.getRequestDispatcher("Home");
+rd.forward(request, response);
+}
+else {
+out.println("<b>Sorry :(</b>");
+RequestDispatcher rd = request.getRequestDispatcher("Login.html");
+rd.include(request, response);
+}
+
+======Home.java (Servlet with doPost() )
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false); 
+		String uid = (String)session.getAttribute("userid");
+		PrintWriter out = response.getWriter();
+		out.println("<h1>Welcome "+uid+"</h1>");
+		out.println("<br><a href='View'>View</a>");
+		out.println("<br><a href='Logout'>Logout</a>");
+	}
+
+
+-----------------View.java (Servlet with doGet() ----
+
+HttpSession session = request.getSession(false); 
+String uid = (String)session.getAttribute("userid");
+PrintWriter out = response.getWriter();
+out.println("<h1>Again Welcome "+uid+"</h1>");
+
+-----------------Logout.java (Servlet with doGet() ----
+HttpSession session = request.getSession(false); 
+session.invalidate();
+response.sendRedirect("Login.html");
+
+==========================================================================
+
+Cookie handle
+===============
+CookieTest.html--------------
+
+<form action="CookieTest" method="post">
+Name of User: <input type='text' id='uname' name='uname'>  <br>
+Location: <input type='text' id='location' name='location'>  <br>
+<input type='submit' value='Submit'> <input type='reset'>
+</form>
+
+CookieTest.java(Servlet with method : doPost) -------------
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uname = request.getParameter("uname");
+		String location = request.getParameter("location");
+		
+		//data store as cookie
+		Cookie c1 = new Cookie("uname", uname);  // create cookie
+                                        c1.setMaxAge(15);   // set age for cookie in seconds
+		Cookie c2 = new Cookie("location", location);
+		response.addCookie(c1);  // bind cookie with response
+		response.addCookie(c2);
+		
+		PrintWriter out = response.getWriter();
+		out.println("<h1>Name:"+uname+"<br>Location:"+location+"</h1>");
+		out.println("<a href='NextCookie.jsp'>Next</a>");
+		
+	}
+
+NextCookie.jsp  -------------------------
+<body>
+<%
+   Cookie cookie[] =  request.getCookies();
+   for(Cookie c:cookie){
+%>
+	<b> <%=c.getName()%> </b>  :  <%=c.getValue()%> 
+	<br>
+	   
+<%	   
+        }
+%>
+</body>
+
+================URL Rewrite  -------------------
+
+UrlRewrite.html     ---->   UrlRewrite.jsp
+
+UrlRewrite.html-------------------
+<body>
+<a href='UrlRewrite.jsp?id=1'>Date</a> | 
+<a href='UrlRewrite.jsp?id=2'>Time</a>
+</body>
+
+
+UrlRewrite.jsp ----------
+<body>
+<%
+int ch = Integer.parseInt(request.getParameter("id"));
+if(ch==1) {
+	Date date = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+%>
+ 	 <h3>Date is <%=sdf.format(date)%></h3>
+<%
+}
+else if (ch==2) {
+	Date date = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+%>
+  	<h3>Time is <%=sdf.format(date)%></h3>
+<%
+}
+%>
+</body>
+
+Exception Handle   
+
+
+
+
+
+
+
+
+
+
+
+
+

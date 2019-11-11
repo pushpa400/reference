@@ -1,0 +1,117 @@
+JSP used to create web application just like sevlet technology.
+
+Advantage of JSP				Servlet
+extension toservlet				business logic code here
+easy to maintain
+fast devleopment
+presentation logic mainatined here
+
+Life cyclce of JSP
+JSP engine is part of web conatiner which compiles JSP page to servlet
+
+1>transalation of JSP page
+2>compiltaion of JSP page
+3>class loading loaded by class loader
+4>instantiation -obj of the generated servlet is created
+5>initialization(jspInit() method is invoked by the container--possible to override)
+6>request processing(_jspService() method is invoked by the container--cannot override coz its final method identified by method starting with '_')
+7>destroy (jspDestroy() method is invoked by the container--possible to override)
+
+NOTE:_jspService()--cannot override coz its final method identified by method starting with '_'
+
+JSP API consists of 2 package
+javax.servlet.jsp
+javax.servlet.jsp.tagext
+
+======================================================================
+JSP Component
+-----------------
+JSP scriptlet tag
+-----------------
+<%
+	java statement
+%>
+is used to execute java scource code in jsp
+
+JSP expression
+---------------
+<%=name%>
+code placed within JSP expression tag is written to the output stream of the response
+
+JSP Declaration
+---------------
+used to declare fields and methods, is placed outside the service
+<%!
+	declare attribute and methods
+%>
+
+
+/*file name with extension*/--in action tag
+
+inbuilt obj in java--in,out,err
+inbuilt obj in jsp-request obj
+
+no updation in web.xml in jsp file
+view source in browser-only html code is seen not the java code
+
+========================
+JSP implicit object
+out			JSPWrtiter
+request			HttpServletRequest
+response		HttpServletRequest
+config			ServletConfig
+application		ServletContext
+session			Httpsession
+pageContext		PageContext
+page			object
+exception		throwable
+
+============
+JSP directives --taken care by JSP translator-jsp-servlet
+-----------
+<%@
+directive atrribute="value"%>
+%>
+
+page directive--used to set page attribute for current jsp page 
+include directive-- used ti include the contents of any resource it may be jsp file,html or text file , at page translational time
+taglib directive--many tags in jsp,used to perform some specific tasks,custom/external tag libraries can also be created or included
+
+dont want default tag ,den use prefix to aceess from custom library
+
+============================
+JSP action tag--happens at processing tim
+used to perform some specific tasks
+used to control the flow between pages and to use java bean
+
+<jsp.include>  includes another resource,to include dynamic content,action tag,processing,request tim it occurs	&&&& <%@include>to include static content,directive tag,translate tim
+
+<jsp.forward>   forwards the request amd response to another resource
+
+processing tim is action time
+
+whatever written in jsp page, html java etc evrything becomes a service which is _jspService, evrything is sent to dis service method so cannot override this method
+
+POJO-plain old java object
+
+MVC
+M
+V-JSP
+C-servlet
+==============
+JAVA BEAN
+is a class that,to depict a real entity
+shld have no arg contsructor
+shld be serilizable
+method to set and get value of properties,getter setter
+
+------------
+cookie
+session-conversation state bw client and server
+session.setMaxInactiveInterval(sec)
+==============================================
+JSTL(JSP standard tag library)
+advanatge
+fast development
+code reusability
+no need to use scriptlet tag
