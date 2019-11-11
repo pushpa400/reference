@@ -1,0 +1,118 @@
+JAX-WS - is Java API for the XML-Based Web Services - a standard way to develop a Web- Services in SOAP notation (Simple Object Access Protocol).
+
+Calling of the Web Services is performed via remote procedure calls. 
+For the exchange of information between the client and the Web Service is used SOAP protocol. Message exchange between the client and the server performed through XML- based SOAP messages.
+
+Clients of the JAX-WS Web- Service need a WSDL file to generate executable code that the clients can use to call Web- Service.
+
+JAX-RS - Java API for RESTful Web Services. 
+RESTful Web Services are represented as resources and can be identified by Uniform Resource Identifiers (URI). 
+Remote procedure call in this case is represented a HTTP- request and the necessary data is passed as parameters of the query. 
+Web Services RESTful - more flexible, can use several different MIME- types. Typically used for XML data exchange or JSON (JavaScript Object Notation) data exchange.
+
+-------------------------
+
+JAX -RS ( Jersy Rest Service )
+
+make a table in oracle : called Track  
+  title - varchar(50) - pk
+  singer - varchar(50)
+
+
+create table track( title varchar(50) not null primary key, singer varchar(50));
+
+insert into track values('song1','Kumar Sanu');
+insert into track values('song2','Udit Narayan');
+commit;
+select * from track;
+
+Now design a dynamic web project from eclipse : restapps [ version-2.5]
+under lib , paste all jars (already provided)
+make 3 java package : model , service , controller
+
+----
+1. create a java class: Track.java ( under pack: model)
+2. create a java class: MyService.java ( under pack: service)
+3. create a java class: MyController.java ( under pack: controller)
+
+URI :   http://localhost:8084/restapps/rest/tracks  
+[ to get all tracks ]
+
+URI :   http://localhost:8084/restapps/rest/tracks/{title}  
+[ to get a particular  track ]
+
+http://localhost:8084/restapps/rest/tracks/get/aaa 
+http://localhost:8084/restapps/rest/tracks/get/aaaaaaa
+
+
+POST:
+http://localhost:8084/restapps/rest/tracks/post
+
+under body --- raw
+{
+   "title"  : "pop",
+   "singer" : "push"
+}
+get - reading
+http://localhost:8084/restapps/rest/tracks 
+http://localhost:8084/restapps/rest/tracks/get/{title}
+
+post - inserting
+http://localhost:8084/restapps/rest/tracks/post
+ {
+   "title"  : "pop",
+   "singer" : "push"
+}    
+
+put - updating
+http://localhost:8084/restapps/rest/tracks/update
+ {
+   "title"  : "pop",
+   "singer" : "push"
+} 
+
+delete
+http://localhost:8084/restapps/rest/tracks/delete/{title}
+
+------------Calling REST APIs through Jquery ----
+
+
+
+ServletFilter : used to filter the url as well as update request and response objects.
+
+it is coming from javax.servlet.Filter interface, need to design a class by implementing this interface.
+need to override 3 methods:
+
+public class CORSFilter implements Filter {
+public void destroy() { }
+public void init(FilterConfig arg0) throws ServletException { }
+public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException { }
+}
+
+Now map this filter in web.xml file:
+  <filter>
+  <filter-name>CORSFilter</filter-name>
+  <filter-class>controller.MyFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  <filter-name>CORSFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
+
+=======================
+
+
+
+
+
+
+
+
+
+
+
+
