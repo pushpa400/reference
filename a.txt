@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<jsp:include page = "menu.jsp"></jsp:include>
+<form action = "reg.jsp" method = "post">
+	<table>
+		<tr> <th> User Id</th> <td> <input type = "text" name = "uid" id = "uid"></td></tr>
+		<tr> <th> Password</th> <td> <input type = "password" name = "pwd" id = "pwd"></td></tr>
+		<tr> <th> User Name </th> <td> <input type = "text" name = "uname" id = "uname"></td></tr>
+		<tr> <th> Age </th> <td> <input type = "number" name = "age" id = "age" min=18 max=45></td></tr>
+		<tr> <th colspan="2>  <input type = "Submit" value="reguster"> </th> </tr>
+		
+	
+
+	</table>
+	</form>
+</body>
+</html>
+
+
+===================================================logout.jsp=======================
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<% session.invalidate();
+response.sendRedirect("Login.html");%>
+</body>
+</html>
+
+
+
+
+
+Eclipse IDE, menu bar
+Select Window > Preferences
+Select Java > Build Path > Classpath Variables
+Click on the new button > defined a new M2_REPO variable and point it to your local Maven repository
+Done.

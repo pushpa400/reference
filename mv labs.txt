@@ -1,0 +1,137 @@
+
+mvn archetype:generate -DgroupId=groupid -DartifactId=artifactid  -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=booleanValue  
+
+mvn archetype:generate -DgroupId=aaa -DartifactId=bbb  -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=booleanValue  
+
+
+
+Set the JAVA_HOME environment variable
+
+For Windows : Set the environment variable 
+
+JAVA_HOME 
+C:\Program Files\Java\jdk1.7.0_60
+
+Set Maven Environment Variables
+Add M2_HOME, M2, MAVEN_OPTS to environment variables.
+
+For Windows :  
+Set the environment variables using system properties.
+M2_HOME=C:\ProgramFiles\ApacheSoftwareFoundation\apache-maven-3.3.1 
+M2=%M2_HOME%\bin 
+MAVEN_OPTS=-Xms256m -Xmx512m
+
+Open environment variable path variable:
+add new entry :  %M2%
+
+now open a comamnd windows : 
+mvn -version
+
+
+Get Oracle JDBC Driver
+Alternatively, you can get the Oracle JDBC driver from the Oracle database installed folder, for example: {ORACLE_HOME}\jdbc\lib\ojdbc8.jar
+
+Maven Install ojdbc8.jar
+2.1 Upload or install the downloaded ojdbc.jar into the Maven local repository.
+
+ojdbc8.jar
+$ mvn install:install-file -Dfile=path/to/your/ojdbc8.jar -DgroupId=com.oracle 
+	-DartifactId=ojdbc8 -Dversion=19.3 -Dpackaging=jar
+
+
+ojdbc6.jar
+$ mvn install:install-file -Dfile=path/to/your/ojdbc6.jar -DgroupId=com.oracle 
+	-DartifactId=ojdbc6 -Dversion=11.2.0.4 -Dpackaging=jar
+Copy
+Note
+The -Dversion= is depends on your database version, in this example, we are using Oracle database 19c, so put -Dversion=19.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+========================
+
+To get mvn version :  mvn -version
+
+To get help :  mvn -help
+
+to make a  java Project:
+---------
+mvn archetype:generate -DgroupId=abc -DartifactId=testapp -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+
+Compile the Maven Java Project: 
+To compile the project, go to the project directory,
+
+command prompt: mvn clean compile  
+
+
+Run the Maven Java Project:
+To run the project, go to the project directory\target\classes,
+
+command prompt: java com.javatpoint.App  
+
+Build the maven project or package maven project:
+command prompt: mvn package  
+
+
+Now a jar file is created inside the project/target directory.
+run the maven project by the jar file:
+
+java -classpath target\CubeGenerator-1.0-SNAPSHOT.jar;.; com.pack.App  
+(Here App is the main class)
+
+java -cp D:\dibakar\testapp\target\testapp-1.0-SNAPSHOT.jar abc.App
+
+-- make java web app using maven
+
+
+
+
+
+  make a maven web-app
+
+ it contains following module:
+ there is a registration form which insert data to oracle db
+
+ it should contain mvc framework
+
+ but all dependencies should be provided from maven repository
+
+=============
+if test success. generate war file as target through maven
+
+then depoloy this war under a remote tomcat
+
+http://192.168.101.61:8084/projmav/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
